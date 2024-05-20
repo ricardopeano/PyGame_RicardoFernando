@@ -11,14 +11,23 @@ JUMP_SOUND = 'jump_sound'
 DEATH_SOUND = 'death_sound'
 BACKGROUND_SOUND = 'background_sound'
 
+dino_image_original = pygame.image.load(os.path.join(IMG_DIR, 'de_pe.png'))
+dino_ducked_image_original = pygame.image.load(os.path.join(IMG_DIR, 'agachado.png'))
+background_image_original = pygame.image.load(os.path.join(IMG_DIR, 'background_dino.jpeg'))
+score_font = pygame.font.Font(os.path.join(FNT_DIR, 'scorefont.TTF'), 28)
+
 def load_assets():
     assets = {}
     assets[BACKGROUND] = pygame.image.load(os.path.join(IMG_DIR, 'background_dino.jpeg')).convert()
     assets[DINO_PE_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'de_pe.png')).convert_alpha()
-    assets[DINO_PE_IMG] = pygame.transform.scale(assets['ship_img'], (SHIP_WIDTH, SHIP_HEIGHT))
     assets[DINO_AGACHADO_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'agachado.png')).convert_alpha()
     assets[DINO_AGACHADO_IMG] = pygame.transform.scale(assets['ship_img'], (SHIP_WIDTH, SHIP_HEIGHT))
     assets[SCORE_FONT] = pygame.font.Font(os.path.join(FNT_DIR, 'scorefont.TTF'), 28)
+    assets[DINO_PE_IMG] = pygame.transform.scale(assets['dino_pe_img'], (60, 60))  
+    assets[DINO_AGACHADO_IMG] = pygame.transform.scale(assets['dino_agachado_img'], (60, 60))  
+    assets[BACKGROUND] = pygame.transform.scale(assets['background'], (800, 400))  
+
+    
 
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(SND_DIR, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))

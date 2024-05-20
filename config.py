@@ -11,10 +11,10 @@ HEIGHT = 400 # Altura da tela
 FPS = 60 # Frames por segundo
 
 # Define tamanhos
-DINO_PE_WIDTH = 0
-DINO_PE_HEIGHT = 0
-DINO_AGA_WIDTH = 0
-DINO_AGA_HEIGHT = 0
+DINO_PE_WIDTH = 60
+DINO_PE_HEIGHT = 60
+DINO_AGA_WIDTH = 60
+DINO_AGA_HEIGHT = 60
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
