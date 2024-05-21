@@ -157,7 +157,7 @@ while running:
         game_over = checa_colisao(obstacles, dino_x, dino_y, dino_image.get_width(), dino_image.get_height(), ducking)
 
         score += 1
-        if score <= 2000:
+        if score <= 3000:
             if score % 100 == 0:
                 obstacle_speed += 1
 
