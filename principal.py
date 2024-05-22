@@ -1,9 +1,23 @@
 import pygame
 import random
 import os
-from config import IMG_DIR, FNT_DIR, BLACK, WHITE
+from config import IMG_DIR, FNT_DIR, BLACK, WHITE, SND_DIR, WIDTH, HEIGHT, FPS
 
 pygame.init()
+
+# Carregando arquivos de som
+pygame.mixer.init()
+background_sound = pygame.mixer.Sound(os.path.join(SND_DIR, 'game_song.ogg'))
+jump_sound = pygame.mixer.Sound(os.path.join(SND_DIR, 'jump_sound.wav'))
+game_over_sound = pygame.mixer.Sound(os.path.join(SND_DIR, 'game_over.wav'))
+
+# Carrega arquivos de letra
+score_font = pygame.font.Font(os.path.join(FNT_DIR, 'scorefont.ttf'), 20)
+game_over_font = pygame.font.Font(os.path.join(FNT_DIR, 'scorefont.ttf'), 40)
+start_font = pygame.font.Font(os.path.join(FNT_DIR, 'Daydream.ttf'), 20)
+
+# Loop da musica de fundo
+background_sound.play(-1)
 
 # Definindo os assets
 dino_image_original = pygame.image.load(os.path.join(IMG_DIR, 'de_pe.png'))
@@ -87,9 +101,8 @@ def checa_colisao(obstacles, dino_x, dino_y, dino_width, dino_height, ducking):
 
 # Funcao para mostrar o score
 def mostra_score(score):
-    font = pygame.font.Font(None, 36)
-    score_text = font.render(f"Score: {score}", True, BLACK)
-    screen.blit(score_text, (650, 10))
+    score_text = score_font.render(f"Score: {score}", True, BLACK)
+    screen.blit(score_text, (570, 10))
 
 def reset_game():
     global dino_y, dino_jump, jump_height, score, game_over, obstacles, obstacle_speed
@@ -103,8 +116,8 @@ def reset_game():
 
 # Funcao para desenhar o botao "Start"
 def desenha_start():
-    font = pygame.font.Font(None, 50)
-    start_text = font.render("Start", True, WHITE)
+    font = pygame.font.Font(None, 60)
+    start_text = start_font.render("Start", True, WHITE)
     start_button = start_text.get_rect(center=(screen_width // 2, screen_height // 2 + 50))
     pygame.draw.rect(screen, BLACK, start_button, 2)
     screen.blit(start_text, start_button)
@@ -118,7 +131,7 @@ while running:
     # Se o jogo estiver parado, desenha o botao "Start"
     if game_over:
         desenha_start()
-        game_over_text = pygame.font.Font(None, 72).render("Game Over!", True, BLACK)
+        game_over_text = game_over_font.render("Game Over!", True, BLACK)
         screen.blit(game_over_text, (250, 150))
 
     for event in pygame.event.get():
@@ -130,6 +143,7 @@ while running:
             elif event.key == pygame.K_SPACE and not ducking and not dino_jump and not game_over:
                 dino_jump = True
                 jump_height = initial_jump_height
+                jump_sound.play()  
             elif event.key == pygame.K_DOWN and not game_over:
                 ducking = True
         elif event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
@@ -156,10 +170,18 @@ while running:
         update_obstaculos(obstacles, obstacle_speed)
         game_over = checa_colisao(obstacles, dino_x, dino_y, dino_image.get_width(), dino_image.get_height(), ducking)
 
+        if game_over:
+            game_over_sound.play()  
+
         score += 1
         if score <= 3000:
             if score % 100 == 0:
                 obstacle_speed += 1
+
+        # Condicao de vitoria do jogo:
+        if score >= 5000:
+            game_over = True
+            game_over_sound.play()  
 
     aloca_dino(dino_x, dino_y, ducking)
     aloca_obstaculos(obstacles)
