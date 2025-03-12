@@ -96,6 +96,7 @@ def obter_retangulo_dino(dino_x, dino_y, dino_width, dino_height, ducking):
     dino_rect = pygame.Rect(dino_x, effective_dino_y, dino_width, effective_dino_height)
     return dino_rect
 
+
 # Funcao para verificar colisoes
 def checa_colisao(obstacles, dino_x, dino_y, dino_width, dino_height, ducking):
     dino_rect = obter_retangulo_dino(dino_x, dino_y, dino_width, dino_height, ducking)
