@@ -89,15 +89,20 @@ def add_obstaculo():
     width = 20
     obstacles.append([screen_width, y_pos, width, height])
 
-# Funcao para verificar colisoes
-def checa_colisao(obstacles, dino_x, dino_y, dino_width, dino_height, ducking):
+def obter_retangulo_dino(dino_x, dino_y, dino_width, dino_height, ducking):
     effective_dino_height = dino_ducked_image.get_height() if ducking else dino_height
     effective_dino_y = dino_y + 20 if ducking else dino_y  
     dino_rect = pygame.Rect(dino_x, effective_dino_y, dino_width, effective_dino_height)
+    return dino_rect
+
+# Funcao para verificar colisoes
+def checa_colisao(obstacles, dino_x, dino_y, dino_width, dino_height, ducking):
+    dino_rect = obter_retangulo_dino(dino_x, dino_y, dino_width, dino_height, ducking)
     for obstacle in obstacles:
         if dino_rect.colliderect(pygame.Rect(obstacle[0], obstacle[1], obstacle[2], obstacle[3])):
             return True
     return False
+
 
 # Funcao para mostrar o score
 def mostra_score(score):
