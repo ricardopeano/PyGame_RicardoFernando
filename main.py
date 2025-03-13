@@ -109,7 +109,7 @@ while running:
             last_obstacle_time = pygame.time.get_ticks()
 
         for obstacle in obstacles:
-            obstacle.update_obstaculo()
+            obstacle.update_obstaculo(score)
             if obstacle.checa_colisao(dino):
                 game_over = True
                 game_over_sound.play()
@@ -117,6 +117,7 @@ while running:
         obstacles = [o for o in obstacles if not o.fora_da_tela()]
 
         score += 1
+        
 
     dino.aloca_dino(screen)
     for obstacle in obstacles:

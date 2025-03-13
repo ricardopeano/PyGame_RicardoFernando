@@ -15,6 +15,8 @@ class Obstaculo:
 
     def update_obstaculo(self):
         self.x -= self.speed
+        
+
 
     def aloca_obstaculos(self, screen):
         pygame.draw.rect(screen, pygame.Color("black"), pygame.Rect(self.x, self.y, self.width, self.height))
