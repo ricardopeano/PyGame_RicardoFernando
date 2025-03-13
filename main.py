@@ -62,6 +62,7 @@ def mostra_score(score):
     score_text = score_font.render(f"Score: {score}", True, BLACK)
     screen.blit(score_text, (570, 10))
 
+
 def reset_game():
     global dino_y, dino_jump, jump_height, score, game_over, obstacles, obstacle_speed
     dino_y = altura_chao - 50
@@ -109,7 +110,7 @@ while running:
             last_obstacle_time = pygame.time.get_ticks()
 
         for obstacle in obstacles:
-            obstacle.update_obstaculo(score)
+            obstacle.update_obstaculo()
             if obstacle.checa_colisao(dino):
                 game_over = True
                 game_over_sound.play()
@@ -117,6 +118,9 @@ while running:
         obstacles = [o for o in obstacles if not o.fora_da_tela()]
 
         score += 1
+        if score <= 3000:
+            obstacle.speed = obstacle.speed_base + score // 100
+        print(obstacle.speed)
         
 
     dino.aloca_dino(screen)

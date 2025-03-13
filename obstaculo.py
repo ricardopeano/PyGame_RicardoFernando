@@ -11,7 +11,8 @@ class Obstaculo:
             self.height = 30
             self.y = altura_chao - self.height - 40
         self.x = screen_width
-        self.speed = 7
+        self.speed_base = 7
+        self.speed = self.speed_base
 
     def update_obstaculo(self):
         self.x -= self.speed
